@@ -1,0 +1,10 @@
+pipeline{
+    agent any
+    stages{
+       stage('Git checkout'){
+            steps{
+              git branch: 'main', credentialsId: 'kavya', url: 'https://github.com/kavyasrini24/javawebapp.git'
+            }
+         }     
+    }
+}
