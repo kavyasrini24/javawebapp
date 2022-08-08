@@ -5,6 +5,11 @@ pipeline{
             steps{
               git branch: 'main', credentialsId: 'kavya', url: 'https://github.com/kavyasrini24/javawebapp.git'
             }
-         }     
+         } 
+          stage('Build'){
+            steps{
+                sh 'mvn clean package'
+            }
+        }
     }
 }
