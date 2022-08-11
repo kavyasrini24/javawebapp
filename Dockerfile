@@ -1,4 +1,5 @@
-FROM openjdk:8
+FROM tomcat:latest
+LABEL maintainer="kavyamsrini"
 ADD ./target/SimpleWebApplication SimpleWebApplication.war
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/SimpleWebApplication.war"]
+CMD ["catalina.sh","run"]
