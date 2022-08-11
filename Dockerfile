@@ -1,4 +1,4 @@
-FROM tomcat:latest
+FROM tomcat:10.0.23
 LABEL maintainer="kavyamsrini"
 ADD ./target/SimpleWebApplication.war /usr/local/tomcat/webapps/
 EXPOSE 8080
