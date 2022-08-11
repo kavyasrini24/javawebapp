@@ -1,4 +1,4 @@
-FROM tomcat:latest
+FROM centos:latest
 LABEL maintainer="kavyamsrini"
 ADD ./target/SimpleWebApplication SimpleWebApplication.war
 EXPOSE 8080
