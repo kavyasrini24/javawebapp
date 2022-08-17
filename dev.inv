@@ -1,2 +1,2 @@
 [dev]
-172.31.9.254 ansible_user=root
+172.31.15.109 ansible_user=ec2-user
