@@ -36,6 +36,6 @@
       args:
         warn: false
     - name: starting_tomcat
-      shell: nohup /home/ec2-user/apache-tomcat-9.0.65/bin/start.sh
+      shell: nohup /home/ec2-user/apache-tomcat-9.0.65/bin/startup.sh
     - name: copy war file
       copy: src=./target/SimpleWebApplication.war dest=/opt/apache-tomcat-9.0.65/webapps/
