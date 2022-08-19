@@ -1,50 +1,41 @@
----
-- name: Install Java 8
-  yum: name=java-1.8.0-openjdk state=present
-
-- name: add group "tomcat"
-  group: name={{tomcat_group}}
-
-- name: add user "tomcat"
-  user: name={{tomcat_user}} group={{tomcat_group}} home=/usr/share/tomcat createhome=no
-  become: True
-  become_method: sudo
-
-- name: Download Tomcat
-  get_url: url=http://archive.apache.org/dist/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65.tar.gz dest=/opt/apache-tomcat-9.0.65.tar.gz
-
-- name: Extract archive
-  command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-9.0.65.tar.gz -C /opt/ creates=/opt/apache-tomcat-9.0.65
-
-- name: Symlink install directory
-  file: src=/opt/apache-tomcat-9.0.65 path=/usr/share/tomcat state=link
-
-- name: Change ownership of Tomcat installation
-  file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes
-
-- name: Configure Tomcat server
-  template: src=server.xml dest=/usr/share/tomcat/conf/
-
+- name: installin tomcat
+  hosts: webservers
+  gather_facts: true
+  become_user: root
+  become: yes
   
-- name: Create  sample directory
-  file: 
-    path: "/opt/apache-tomcat-9.0.65/webapps/samples"
-    state: directory
-    mode: 0777
-  become: true
-  
-
-- name: copy war file
-  copy: src=./target/SimpleWebApplication.war dest=/opt/apache-tomcat-9.0.65/webapps/
-
-
-  notify: restart tomcat
-
-- name: Install Tomcat init script
-  copy: src=tomcat-initscript.sh dest=/etc/init.d/tomcat mode=0755
-
-- name: Start Tomcat
-  service: name=tomcat state=started enabled=yes
-
-- name: wait for tomcat to start
-  wait_for: port={{http_port}}
+  vars:
+    default:/home/ec2-user
+    scontext: /home/ec2-user/apache-tomcat-9.0.65/webapps/manager/META-INF/context.xml
+    stomcatusers: /home/ec2-user/apache-tomcat-9.0.65/conf/tomcat-users.xml
+  tasks:
+    - name: make directory
+      file: 
+         path: "{{default}}"
+         state: directory
+     - name: updating os packages
+       shell: yum update -y
+       args:
+         warn: false
+     - name: installing tree
+       shell: yum install tree -y
+       args:
+         warn: false
+      - name: installing java-8
+        yum:
+          name: "{{packages}}"
+        vars:
+          packages:
+          - java-1.8.0-openjdk
+       - name: tomcat archive download
+          get_url:
+             url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.65/bin/apache-tomcat-9.0.65.tar.gz
+             dest: "{{default}}"
+        - name: untaring archive
+          command: tar -C "{{default}}" -zvxf /home/ec2-user/apache-tomcat-9.0.65.tar.gz
+          args:
+            warn: false
+        - name: starting_tomcat
+          shell: nohup /home/ec2-user/apache-tomcat-9.0.65/bin/start.sh
+        - name: copy war file
+          copy: src=./target/SimpleWebApplication.war dest=/opt/apache-tomcat-9.0.65/webapps/
