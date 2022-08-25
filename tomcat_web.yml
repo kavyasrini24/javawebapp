@@ -42,6 +42,6 @@
     - action: uri url=http://18.237.234.221:8081/repository/simple-app/com/maven/bt/SimpleWebApplication/9.1.14/SimpleWebApplication-9.1.14.war return_content=yes
       register: webpage
     - fail:
-        msg: "service is not happy"
+        msg: service is not happy
       when: "'AWESOME' not in webpage.content"
       
