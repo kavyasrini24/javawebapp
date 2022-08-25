@@ -42,10 +42,8 @@
     - name: "check the status"
       uri:
         url: "{{ http://18.237.234.221:8081/repository/simple-app/com/maven/bt/SimpleWebApplication/9.1.14/SimpleWebApplication-9.1.14.war }}"
-        method: GET
-        timeout: 30
-        return_content: yes
-        register: out
-    - name: Print the msg
-      debug:
-        msg: "{{out}}"
+        status_code:200
+      register: result
+      until: result.status == 200
+      retries: 90
+      delay: 10
