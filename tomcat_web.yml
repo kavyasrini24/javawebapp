@@ -38,4 +38,4 @@
     - name: starting_tomcat
       shell: nohup /home/ec2-user/apache-tomcat-9.0.65/bin/startup.sh
     - name: copy war file
-      shell: wget http://54.69.182.23:8081/repository/simple-app/com/maven/bt/SimpleWebApplication/9.1.14/SimpleWebApplication-9.1.14.war -P /home/ec2-user/apache-tomcat-9.0.65/webapps
+      shell: wget http://18.237.234.221:8081//http://18.237.234.221:8081/repository/simple-app/com/maven/bt/SimpleWebApplication/9.1.14/SimpleWebApplication-9.1.14.war -P /home/ec2-user/apache-tomcat-9.0.65/webapps
