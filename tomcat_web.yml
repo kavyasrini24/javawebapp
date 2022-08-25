@@ -42,7 +42,7 @@
     - name: access the website and make sure the url is live
       uri:
        url: http://18.237.234.221:8081/repository/simple-app/com/maven/bt/SimpleWebApplication/9.1.14/SimpleWebApplication-9.1.14.war
-       status_code: 401
+       status_code: 200
       register: validateurl
     - name: "INFO:HTTP Response for the url"
       debug: var=validateurl.msg
