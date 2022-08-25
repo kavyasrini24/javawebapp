@@ -41,12 +41,12 @@
       shell: wget http://18.237.234.221:8081/repository/simple-app/com/maven/bt/SimpleWebApplication/9.1.14/SimpleWebApplication-9.1.14.war -P /home/ec2-user/apache-tomcat-9.0.65/webapps
     - name: "check the status of the remote server from localhost"
       uri:
-    	  url: "{{ http://18.237.234.221:8081 }}"
-    	  method: GET
-    	  timeout: 30
-    	  return_content: yes
-  	    register: out
+    	 url: "{{ http://18.237.234.221:8081 }}"
+    	 method: GET
+    	 timeout: 30
+    	 return_content: yes
+  	   register: out
 
     - name: Print the msg 
       debug:
-    	  msg: "{{ out }}"
+    	 msg: "{{ out }}"
