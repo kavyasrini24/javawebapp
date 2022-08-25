@@ -39,20 +39,11 @@
       shell: nohup /home/ec2-user/apache-tomcat-9.0.65/bin/startup.sh
     - name: copy war file
       shell: wget http://18.237.234.221:8081/repository/simple-app/com/maven/bt/SimpleWebApplication/9.1.14/SimpleWebApplication-9.1.14.war -P /home/ec2-user/apache-tomcat-9.0.65/webapps
-    - name: collect facts about system service
-      service_facts:
-      register: services_state
-    - name: debug
-      debug:
-        var: services_state
-    - name: checking service status
-      command: systemctl status "{{ item }}"
-      with_items:
-      - firewalld
-      - httpd
-      register: result
-      ignore_errors: yes
-    - name: showing report
-      debug:
-       var: result
+    - name: access the website and make sure the url is live
+      uri:
+       url: http://18.237.234.221:8081/repository/simple-app/com/maven/bt/SimpleWebApplication/9.1.14/SimpleWebApplication-9.1.14.war
+       status_code: 401
+      register: validateurl
+    - name: "INFO:HTTP Response for the url"
+      debug: var=validateurl.msg
       
