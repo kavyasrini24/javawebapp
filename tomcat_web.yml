@@ -43,5 +43,6 @@
       service_facts:
     - name: "see the service facts as they are"
       debug: 
-        msg: "{{ansible_facts.services}}"
+        msg: "{{ansible_facts.services['httpd.service'].state}}"
+    - name:
       
