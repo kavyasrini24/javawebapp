@@ -47,6 +47,6 @@
     	  return_content: yes
   	    register: out
 
-    - name: Print the msg
+    - name: Print the msg 
       debug:
     	  msg: "{{ out }}"
