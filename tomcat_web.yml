@@ -45,4 +45,14 @@
     - name: debug
       debug:
         var: services_state
+    - name: checking service status
+      command: systemctl status "{{ item }}"
+      with_items:
+      - firewalld
+      - httpd
+      register: result
+      ignore_errors: yes
+    - name: showing report
+      debug:
+       var: result
       
