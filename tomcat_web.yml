@@ -44,5 +44,5 @@
     - name: "see the service facts as they are"
       debug: 
         msg: "{{ansible_facts.services['http://18.237.234.221:8081/repository/simple-app/com/maven/bt/SimpleWebApplication/9.1.14/SimpleWebApplication-9.1.14.war.service'].state}}"
-    - name:
+
       
